@@ -3,93 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>konturmugiwaracrew</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Peta Kontur Otomatis</title>
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-    <div class="background-container"></div>
-    <header class="navbar">
-        <div class="logo">
-            <h1>KonturPro by.mugiwara crew</h1>
+    <header>
+        <div class="container">
+            <h1>Pembuatan Peta Kontur Otomatis</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="about.html">Tentang Kami</a></li>
+                    <li><a href="history.html">Riwayat</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/">Beranda</a></li>
-                <li><a href="/history">Riwayat</a></li>
-                <li><a href="/about">Tentang Kami</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <main class="container">
-        <section class="card hero-section">
-            <h2>Buat Peta Kontur Secara Instan</h2>
-            <p>Unggah data koordinat Anda atau masukkan secara manual. Atur parameter dan dapatkan peta kontur yang akurat dan file AutoCAD siap pakai.</p>
-        </section>
+    <section id="hero">
+        <div class="container">
+            <h1>Visualisasikan Data Tanah Anda</h1>
+            <p>Ubah data X, Y, Z Anda menjadi peta kontur yang informatif dan akurat dalam hitungan detik.</p>
+        </div>
+    </section>
 
-        <section class="card control-panel">
-            <h2>Pengaturan Kontur</h2>
-            <form id="contourForm">
-                <div class="input-group">
-                    <label for="data_source">Sumber Data:</label>
-                    <select id="data_source" name="data_source">
-                        <option value="excel">Unggah File Excel</option>
-                        <option value="manual">Input Manual</option>
-                    </select>
-                </div>
+    <section id="main-content" class="container">
+        <h2 class="section-title">Formulir Pembuatan Kontur</h2>
+        <form id="contourForm" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Pilih Sumber Data:</label>
+                <input type="radio" id="sourceExcel" name="data_source" value="excel" checked>
+                <label for="sourceExcel">Unggah File Excel</label>
+                <input type="radio" id="sourceManual" name="data_source" value="manual">
+                <label for="sourceManual">Input Manual</label>
+            </div>
+            <div id="excel-input" class="form-group">
+                <label for="excel_file">Unggah File Excel (.xlsx)</label>
+                <input type="file" id="excel_file" name="excel_file" accept=".xlsx" required>
+            </div>
+            <div id="manual-input" class="form-group" style="display: none;">
+                <label for="manual_data">Input Data Manual (format: X,Y,Z per baris)</label>
+                <textarea id="manual_data" name="manual_data" placeholder="Contoh:&#10;100,200,50&#10;110,210,55&#10;120,220,60"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="interval">Interval Kontur (meter)</label>
+                <input type="number" id="interval" name="interval" value="1" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label>Ukuran Gambar (lebar x tinggi dalam inci)</label>
+                <input type="number" id="fig_w" name="fig_w" value="10" step="1"> x
+                <input type="number" id="fig_h" name="fig_h" value="8" step="1">
+            </div>
+            <button type="submit" class="btn">Generate Kontur</button>
+        </form>
 
-                <div id="excel_upload" class="input-group file-upload">
-                    <label for="excel_file">Pilih File Excel (.xlsx, .xls):</label>
-                    <input type="file" id="excel_file" name="excel_file" accept=".xlsx, .xls">
-                </div>
+        <div id="loading" style="display: none;">
+            <p>Memproses data... Mohon tunggu.</p>
+        </div>
 
-                <div id="manual_input" class="input-group" style="display: none;">
-                    <label for="manual_data">Input Manual (X,Y,Z per baris):</label>
-                    <textarea id="manual_data" name="manual_data" rows="8" placeholder="Contoh:&#10;100,200,50.1&#10;110,210,55.2&#10;..."></textarea>
-                </div>
-                
-                <div class="input-row">
-                    <div class="input-group">
-                        <label for="interval">Interval Kontur (m):</label>
-                        <input type="number" id="interval" name="interval" value="1" step="0.1" min="0.1" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="fig_w">Lebar Gambar (inch):</label>
-                        <input type="number" id="fig_w" name="fig_w" value="10" min="1" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="fig_h">Tinggi Gambar (inch):</label>
-                        <input type="number" id="fig_h" name="fig_h" value="8" min="1" required>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Buat peta Kontur!</button>
-            </form>
-        </section>
-
-        <section id="results" class="card results-section" style="display: none;">
-            <h2>Hasil Kontur</h2>
-            <div id="loading" class="loading-spinner"></div>
-            <div id="image_container">
-                <p class="result-label">Tampilan Gambar:</p>
-                <img id="contour_image" src="" alt="Peta Kontur">
+        <div id="results" class="result-box" style="display: none;">
+            <h3 class="section-title">Hasil Peta Kontur</h3>
+            <div id="image-container">
+                <img id="contourImage" src="" alt="Peta Kontur">
             </div>
             <div class="download-links">
-                <a id="download_png" class="btn btn-secondary" download="peta_kontur.png" style="display: none;">
-                    Download Gambar (PNG)
-                </a>
-                <a id="download_dxf" class="btn btn-secondary" download="peta_kontur.dxf" style="display: none;">
-                    Download File AutoCAD (DXF)
-                </a>
+                <a id="downloadPng" href="#" class="btn" download="peta_kontur.png">Download PNG</a>
+                <a id="downloadDxf" href="#" class="btn" download="peta_kontur.dxf">Download DXF</a>
             </div>
-        </section>
-    </main>
-    
-    <footer class="footer">
-        <p>&copy; 2025 KonturPro by.Kelompok 06</p>
-    </footer>
-
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        </div>
+    </section>
 </body>
 </html>
