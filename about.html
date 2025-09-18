@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-container"></div>
+    <header class="navbar">
+        <div class="logo">
+            <h1>KonturPro by.mugiwara crew</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Beranda</a></li>
+                <li><a href="/history">Riwayat</a></li>
+                <li><a href="/about">Tentang Kami</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="card team-section">
+            <h2>Mugiwara Crew</h2>
+            <p>Kami adalah mahasiswa teknik sipil yang berpatisipasi untuk menciptakan solusi inovatif dalam dunia teknik sipil.</p>
+            <div class="team-members">
+                <div class="member-card">
+                    <img src="{{ url_for('static', filename='images/team_member_1.jpg') }}" alt="Foto Anggota 1" class="profile-pic">
+                    <h3>Wahyu Taufiqurrahman</h3>
+                    <p class="role">NPM</p>
+                    <p>G1B024033 </p>
+                </div>
+                <div class="member-card">
+                    <img src="{{ url_for('static', filename='images/team_member_2.jpg') }}" alt="Foto Anggota 2" class="profile-pic">
+                    <h3>Kharan Roina Putra</h3>
+                    <p class="role">NPM</p>
+                    <p>G1B024018</p>
+                </div>
+                <div class="member-card">
+                    <img src="{{ url_for('static', filename='images/team_member_3.jpg') }}" alt="Foto Anggota 3" class="profile-pic">
+                    <h3>Santrio Aprizain</h3>
+                    <p class="role">NPM</p>
+                    <p>G1B024020</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2025 KonturPro by.Kelompok 06</p>
+    </footer>
+</body>
+</html>
