@@ -3,53 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riwayat Peta Kontur</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Riwayat Kontur</title>
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-    <div class="background-container"></div>
-    <header class="navbar">
-        <div class="logo">
-            <h1>KonturPro by.mugiwara crew</h1>
+    <header>
+        <div class="container">
+            <h1>Riwayat Kontur</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="about.html">Tentang Kami</a></li>
+                    <li><a href="history.html">Riwayat</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/">Beranda</a></li>
-                <li><a href="/history">Riwayat</a></li>
-                <li><a href="/about">Tentang Kami</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <main class="container">
-        <section class="card history-section">
-            <h2>Riwayat Kontur</h2>
-            {% if history %}
-                <p>Berikut adalah daftar peta kontur yang telah Anda buat:</p>
-                <div class="history-list">
-                    {% for item in history %}
-                        <div class="history-item">
-                            <div class="history-info">
-                                <h3>Hasil {{ loop.index }}</h3>
-                                <p><strong>Waktu:</strong> {{ item.timestamp }}</p>
-                                <p><strong>Sumber Data:</strong> {{ item.source|capitalize }}</p>
-                                <p><strong>Interval:</strong> {{ item.interval }} m</p>
-                            </div>
-                            <div class="history-image">
-                                <img src="{{ item.image_data }}" alt="Peta Kontur Riwayat">
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p class="no-history">Tidak ada riwayat. Mulailah membuat peta kontur sekarang!</p>
-            {% endif %}
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2025 KonturPro by.Kelompok 06</p>
-    </footer>
+    <section id="main-content" class="container">
+        <h2 class="section-title">Riwayat Hasil Kontur Anda</h2>
+        <p>
+            Fitur riwayat tidak akan berfungsi di GitHub Pages karena memerlukan server Python.
+            Fitur ini hanya bisa berfungsi saat Anda menjalankan proyek secara lokal di komputer Anda.
+        </p>
+    </section>
 </body>
 </html>
